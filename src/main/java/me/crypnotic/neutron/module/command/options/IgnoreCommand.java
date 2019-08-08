@@ -11,7 +11,6 @@ import net.kyori.text.TextComponent;
 import net.kyori.text.event.HoverEvent;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class IgnoreCommand extends CommandWrapper {
     @Override
