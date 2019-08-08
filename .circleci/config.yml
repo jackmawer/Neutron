@@ -43,9 +43,9 @@ jobs:
       - run: ./gradlew assemble
 
       # copy to destination
-      - run: cp target/Neutron-*.jar target/final-plugin.jar
+      - run: cp build/libs/Neutron-*.jar build/libs/final-plugin.jar
 
       # store artifact
       - store_artifacts:
-          path: target/final-plugin.jar
+          path: build/libs/final-plugin.jar
           destination: Neutron_N3FS.jar
