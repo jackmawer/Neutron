@@ -54,6 +54,11 @@ public enum LocaleMessage {
 
     INVALID_USAGE("&cUsage: {0}"),
 
+    KICK_MESSAGE_NO_REASON("&cYou were kicked from the server by {0}!"),
+    KICK_MESSAGE_WITH_REASON("&cYou were kicked from the server by {0}!\n\n&cReason: &f{1}"),
+    KICK_RESPONSE_NO_REASON("&a{0} has been kicked."),
+    KICK_RESPONSE_WITH_REASON("&a{0} has been kicked. Reason: &f{1}"),
+
     LIST_HEADER("&aThere are currently &b{0} &aplayers online\n&7&oHover over a server to see the players online"),
     LIST_MESSAGE("&a[{0}] &e{1} player{2} online"),
 
