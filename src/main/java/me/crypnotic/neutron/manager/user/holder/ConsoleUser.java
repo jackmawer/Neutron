@@ -8,6 +8,7 @@ import java.util.UUID;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.ConsoleCommandSource;
 
+import com.velocitypowered.api.proxy.Player;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -46,17 +47,17 @@ public class ConsoleUser implements User<ConsoleCommandSource> {
     }
 
     @Override
-    public void setIgnoringPlayer(CommandSource source) {
+    public void setIgnoringPlayer(Player target, boolean ignore) {
         /* noop */
     }
 
     @Override
-    public Set<CommandSource> getIgnoredPlayers() {
-        return Collections.emptySet();
+    public boolean isIgnoringPlayer(Player target) {
+        return false;
     }
 
     @Override
-    public boolean isIgnoringPlayer(CommandSource source) {
-        return false;
+    public Set<UUID> getIgnoredPlayers() {
+        return Collections.emptySet();
     }
 }
