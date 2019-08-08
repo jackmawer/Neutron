@@ -40,7 +40,7 @@ jobs:
           key: v1-dependencies-{{ checksum "gradlew" }}
 
       - run: ./gradlew test
-      - run: ./gradlew assemble
+      - run: ./gradlew shadowJar
 
       # copy to destination
       - run: cp build/libs/Neutron-*.jar build/libs/final-plugin.jar
