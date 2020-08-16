@@ -34,6 +34,7 @@ public enum LocaleMessage {
 
     CONNECT_JOIN_MESSAGE("&b{0} &7joined the network"),
     CONNECT_QUIT_MESSAGE("&b{0} &7left the network"),
+    SWITCH_SERVER_MESSAGE("&b{0} &7switched to {1}"),
 
     FIND_MESSAGE("&b{0} &7is connected to &b{1}"),
 

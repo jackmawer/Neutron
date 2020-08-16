@@ -27,6 +27,7 @@ package me.crypnotic.neutron.module.connectmessage;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.DisconnectEvent;
 import com.velocitypowered.api.event.connection.PostLoginEvent;
+import com.velocitypowered.api.event.player.ServerConnectedEvent;
 
 import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.api.locale.LocaleMessage;
@@ -54,5 +55,15 @@ public class ConnectMessageHandler {
         }
 
         StringHelper.broadcast(module.getNeutron().getProxy().getAllPlayers(), LocaleMessage.CONNECT_QUIT_MESSAGE, event.getPlayer().getUsername());
+    }
+
+
+    @Subscribe
+    public void onPlayerSwitchServer(ServerConnectedEvent event) {
+        if (config.isAllowSilentJoinQuit() && event.getPlayer().hasPermission("neutron.silentquit")) {
+            return;
+        }
+
+        StringHelper.broadcast(module.getNeutron().getProxy().getAllPlayers(), LocaleMessage.SWITCH_SERVER_MESSAGE, event.getPlayer().getUsername(), event.getServer().getServerInfo().getName());
     }
 }
