@@ -38,7 +38,7 @@ import me.crypnotic.neutron.api.Neutron;
 import me.crypnotic.neutron.api.locale.LocaleMessage;
 import me.crypnotic.neutron.api.user.User;
 import me.crypnotic.neutron.util.StringHelper;
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
 
 public abstract class CommandWrapper implements Command {
 

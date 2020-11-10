@@ -6,7 +6,7 @@ import me.crypnotic.neutron.api.command.CommandContext;
 import me.crypnotic.neutron.api.command.CommandWrapper;
 import me.crypnotic.neutron.api.locale.LocaleMessage;
 import me.crypnotic.neutron.api.user.User;
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
 
 public class KickCommand extends CommandWrapper {
     @Override

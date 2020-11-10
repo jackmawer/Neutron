@@ -28,8 +28,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import lombok.Getter;
-import net.kyori.text.Component;
-import net.kyori.text.TextComponent;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import ninja.leaping.configurate.objectmapping.Setting;
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
@@ -38,7 +38,8 @@ public class ServerListConfig {
 
     @Getter
     @Setting("motd")
-    private Component motd = TextComponent.of("&7This velocity proxy is proudly powered by &bNeutron");
+    private Component motd = LegacyComponentSerializer.legacyAmpersand()
+            .deserialize("&7This velocity proxy is proudly powered by &bNeutron");
 
     @Getter
     @Setting("player-count")

@@ -6,9 +6,9 @@ import me.crypnotic.neutron.api.command.CommandContext;
 import me.crypnotic.neutron.api.command.CommandWrapper;
 import me.crypnotic.neutron.api.locale.LocaleMessage;
 import me.crypnotic.neutron.api.user.User;
-import net.kyori.text.Component;
-import net.kyori.text.TextComponent;
-import net.kyori.text.event.HoverEvent;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.HoverEvent;
 
 import java.util.*;
 
@@ -44,7 +44,7 @@ public class IgnoreCommand extends CommandWrapper {
             } else {
                 message = message.append(
                     getMessage(source, LocaleMessage.IGNORE_LIST_ITEM_UNKNOWN, uuid.toString())
-                        .hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of(uuid.toString()))));
+                        .hoverEvent(HoverEvent.showText(Component.text(uuid.toString()))));
             }
 
             source.sendMessage(message);

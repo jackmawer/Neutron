@@ -37,8 +37,10 @@ import me.crypnotic.neutron.api.command.CommandWrapper;
 import me.crypnotic.neutron.api.event.UserPrivateMessageEvent;
 import me.crypnotic.neutron.api.locale.LocaleMessage;
 import me.crypnotic.neutron.api.user.User;
-import net.kyori.text.Component;
-import net.kyori.text.TextComponent;
+import net.kyori.adventure.identity.Identified;
+import net.kyori.adventure.identity.Identity;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 
 public class MessageCommand extends CommandWrapper {
 
@@ -51,8 +53,9 @@ public class MessageCommand extends CommandWrapper {
         assertNotNull(source, target, LocaleMessage.UNKNOWN_PLAYER, context.get(0));
 
         String sourceName = source instanceof Player ? ((Player) source).getUsername() : "Console";
+        Identity sourceIdentity = (source instanceof Identified ? ((Identified) source).identity() : Identity.nil());
 
-        Component content = TextComponent.of(context.join(" ", 1));
+        Component content = Component.text(context.join(" ", 1));
         Component sourceMessage = getMessage(source, LocaleMessage.MESSAGE_SENDER, target.getUsername()).append(content);
         Component targetMessage = getMessage(target, LocaleMessage.MESSAGE_RECEIVER, sourceName).append(content);
 
@@ -72,8 +75,8 @@ public class MessageCommand extends CommandWrapper {
         getNeutron().getProxy().getEventManager().fire(event).thenAccept(resultEvent -> {
             UserPrivateMessageEvent.PrivateMessageResult result = resultEvent.getResult();
             if (result.isAllowed()) {
-                source.sendMessage(sourceMessage);
-                target.sendMessage(targetMessage);
+                source.sendMessage(sourceIdentity, sourceMessage);
+                target.sendMessage(sourceIdentity, targetMessage);
 
                 sender.ifPresent(user -> user.setReplyRecipient(target));
                 recipient.ifPresent(user -> user.setReplyRecipient(source));
@@ -91,7 +94,9 @@ public class MessageCommand extends CommandWrapper {
     @Override
     public List<String> suggest(CommandSource source, String[] args) {
         if (args.length == 1) {
-            return getNeutron().getProxy().matchPlayer(args[0]).stream().map(Player::getUsername).collect(Collectors.toList());
+            return getNeutron().getProxy().matchPlayer(args[0]).stream()
+                    .map(Player::getUsername)
+                    .collect(Collectors.toList());
         }
         return Arrays.asList();
     }

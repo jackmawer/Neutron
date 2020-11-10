@@ -37,8 +37,10 @@ import me.crypnotic.neutron.api.command.CommandWrapper;
 import me.crypnotic.neutron.api.event.UserPrivateMessageEvent;
 import me.crypnotic.neutron.api.locale.LocaleMessage;
 import me.crypnotic.neutron.api.user.User;
-import net.kyori.text.Component;
-import net.kyori.text.TextComponent;
+import net.kyori.adventure.identity.Identified;
+import net.kyori.adventure.identity.Identity;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 
 public class ReplyCommand extends CommandWrapper {
 
@@ -51,9 +53,10 @@ public class ReplyCommand extends CommandWrapper {
         assertNotNull(source, target, LocaleMessage.REPLY_NO_RECIPIENT, context.get(0));
 
         String sourceName = source instanceof Player ? ((Player) source).getUsername() : "Console";
+        Identity sourceIdentity = (source instanceof Identified ? ((Identified) source).identity() : Identity.nil());
         String targetName = target instanceof Player ? ((Player) target).getUsername() : "Console";
 
-        Component content = TextComponent.of(context.join(" "));
+        Component content = Component.text(context.join(" "));
         Component sourceMessage = getMessage(source, LocaleMessage.MESSAGE_SENDER, targetName).append(content);
         Component targetMessage = getMessage(target, LocaleMessage.MESSAGE_RECEIVER, sourceName).append(content);
 
@@ -75,8 +78,8 @@ public class ReplyCommand extends CommandWrapper {
         getNeutron().getProxy().getEventManager().fire(event).thenAccept(resultEvent -> {
             UserPrivateMessageEvent.PrivateMessageResult result = resultEvent.getResult();
             if (result.isAllowed()) {
-                source.sendMessage(sourceMessage);
-                target.sendMessage(targetMessage);
+                source.sendMessage(sourceIdentity, sourceMessage);
+                target.sendMessage(sourceIdentity, targetMessage);
 
                 recipient.ifPresent(user -> user.setReplyRecipient(source));
             } else {

@@ -36,7 +36,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.NeutronPlugin;
 import me.crypnotic.neutron.util.StringHelper;
-import net.kyori.text.Component;
+import net.kyori.adventure.identity.Identity;
+import net.kyori.adventure.text.Component;
 
 @RequiredArgsConstructor
 public class Announcement {
@@ -70,7 +71,7 @@ public class Announcement {
             init();
         }
 
-        plugin.getProxy().broadcast(iterator.next());
+        plugin.getProxy().sendMessage(Identity.nil(), iterator.next());
     }
 
     public static Announcement create(NeutronPlugin neutron, String id, AnnouncementData data) {
