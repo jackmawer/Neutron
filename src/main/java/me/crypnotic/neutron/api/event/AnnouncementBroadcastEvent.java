@@ -58,7 +58,7 @@ public final class AnnouncementBroadcastEvent implements ResultedEvent<Announcem
         @Setter
         private boolean allowed;
 
-        public static final BroadcastResult create(Component message) {
+        public static BroadcastResult create(Component message) {
             return new BroadcastResult(message, true);
         }
     }

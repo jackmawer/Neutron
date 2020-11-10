@@ -25,6 +25,7 @@
 package me.crypnotic.neutron.module.announcement;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.Getter;
@@ -49,7 +50,7 @@ public class AnnouncementData {
     private boolean maintainOrder = true;
     @Getter
     @Setting("messages")
-    private List<Component> messages = Arrays.asList();
+    private List<Component> messages = Collections.emptyList();
     @Getter
     @Setting("prefix")
     private Component prefix = Component.empty();

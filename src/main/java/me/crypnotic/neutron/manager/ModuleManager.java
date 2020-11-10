@@ -50,7 +50,7 @@ public class ModuleManager implements Reloadable {
     private final NeutronPlugin neutron;
     private final Configuration configuration;
 
-    private Map<Class<? extends Module>, Module> modules = new HashMap<Class<? extends Module>, Module>();
+    private Map<Class<? extends Module>, Module> modules = new HashMap<>();
 
     @Override
     public StateResult init() {

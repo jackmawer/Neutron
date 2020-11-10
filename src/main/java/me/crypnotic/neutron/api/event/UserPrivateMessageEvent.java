@@ -77,7 +77,7 @@ public final class UserPrivateMessageEvent implements ResultedEvent<UserPrivateM
             this.allowed = false;
         }
 
-        public static final PrivateMessageResult create() {
+        public static PrivateMessageResult create() {
             return new PrivateMessageResult(Optional.empty(), true);
         }
     }

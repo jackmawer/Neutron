@@ -25,6 +25,7 @@
 package me.crypnotic.neutron.module.serverlist;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.Getter;
@@ -65,11 +66,12 @@ public class ServerListConfig {
         @Setting("player-count")
         private int maxPlayerCount = 500;
 
-        public static enum PlayerCountAction {
+        public enum PlayerCountAction {
             CURRENT,
             ONEMORE,
             PING,
-            STATIC;
+            STATIC,
+            ;
         }
     }
 
@@ -85,12 +87,13 @@ public class ServerListConfig {
 
         @Getter
         @Setting("messages")
-        private List<String> messages = Arrays.asList("&7Powered by a &bNeutron");
+        private List<String> messages = Collections.singletonList("&7Powered by a &bNeutron");
 
-        public static enum ServerPreviewAction {
+        public enum ServerPreviewAction {
             EMPTY,
             MESSAGE,
-            PLAYERS;
+            PLAYERS,
+            ;
         }
     }
 }

@@ -25,6 +25,7 @@
 package me.crypnotic.neutron.module.command.options;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -98,6 +99,6 @@ public class ReplyCommand extends CommandWrapper {
         if (args.length == 1) {
             return getNeutron().getProxy().matchPlayer(args[0]).stream().map(Player::getUsername).collect(Collectors.toList());
         }
-        return Arrays.asList();
+        return Collections.emptyList();
     }
 }

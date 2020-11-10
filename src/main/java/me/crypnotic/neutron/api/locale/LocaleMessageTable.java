@@ -42,7 +42,7 @@ public class LocaleMessageTable {
 
     @Getter
     private final Locale locale;
-    private final Map<LocaleMessage, String> messages = new HashMap<LocaleMessage, String>();
+    private final Map<LocaleMessage, String> messages = new HashMap<>();
 
     public Component get(LocaleMessage key, Object... values) {
         String message = messages.get(key);
