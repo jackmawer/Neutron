@@ -21,3 +21,9 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew clean build shadowJar
+      - name: Archive artifact
+        uses: actions/upload-artifact@v2.2.0
+        with:
+          name: "Neutron-N3FS"
+          path: "build/libs/Neutron-N3FS-*.jar"
+          if-no-files-found: error
