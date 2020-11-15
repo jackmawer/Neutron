@@ -19,8 +19,6 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         env:
-          mavenUrl: "https://api.bintray.com/maven/md678685/n3fs/neutron-n3fs/;publish=1"
-          mavenUsername: md678685
-          mavenPassword: ${{ secrets.BINTRAY_TOKEN }}
-        run: ./gradlew clean build shadowJar publish
+          BINTRAY_TOKEN: ${{ secrets.BINTRAY_TOKEN }}
+        run: ./gradlew clean build shadowJar bintrayUpload
 
