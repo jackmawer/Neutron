@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'uk.co.n3fs.mc'
-version '4.0.0-SNAPSHOT'
+version '4.0.0'
 description 'An open-source essential suite for the Velocity proxy'
 
 repositories {
