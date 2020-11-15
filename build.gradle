@@ -5,7 +5,7 @@ plugins {
 	id 'java'
 }
 
-group 'me.crypnotic'
+group 'uk.co.n3fs.mc'
 version '4.0.0-SNAPSHOT'
 description 'An open-source essential suite for the Velocity proxy'
 
