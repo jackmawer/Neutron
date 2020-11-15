@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'uk.co.n3fs.mc'
-version '4.0.1'
+version '4.0.2'
 description 'An open-source essential suite for the Velocity proxy'
 
 repositories {
@@ -42,6 +42,7 @@ blossom {
 bintray {
 	user = "md678685"
 	key = System.getenv("BINTRAY_TOKEN")
+	publish = true
 	pkg {
 		repo = 'minecraft'
 		name = 'neutron-n3fs'
