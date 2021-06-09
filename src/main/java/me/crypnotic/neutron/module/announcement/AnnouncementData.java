@@ -24,34 +24,47 @@
 */
 package me.crypnotic.neutron.module.announcement;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import ninja.leaping.configurate.objectmapping.Setting;
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
+import java.util.Collections;
+import java.util.List;
+
 @ConfigSerializable
-@RequiredArgsConstructor
 public class AnnouncementData {
 
-    @Getter
     @Setting("enabled")
     private boolean enabled = true;
-    @Getter
     @Setting("interval")
     private long interval = 300;
-    @Getter
     @Setting("maintain-order")
     private boolean maintainOrder = true;
-    @Getter
     @Setting("messages")
     private List<Component> messages = Collections.emptyList();
-    @Getter
     @Setting("prefix")
     private Component prefix = Component.empty();
+
+    public AnnouncementData() {
+    }
+
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    public long getInterval() {
+        return this.interval;
+    }
+
+    public boolean isMaintainOrder() {
+        return this.maintainOrder;
+    }
+
+    public List<Component> getMessages() {
+        return this.messages;
+    }
+
+    public Component getPrefix() {
+        return this.prefix;
+    }
 }

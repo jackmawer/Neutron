@@ -27,15 +27,16 @@ package me.crypnotic.neutron.event;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyReloadEvent;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
-
-import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.NeutronPlugin;
 import me.crypnotic.neutron.api.Reloadable;
 
-@RequiredArgsConstructor
 public class StateHandler {
 
     private final NeutronPlugin neutron;
+
+    public StateHandler(NeutronPlugin neutron) {
+        this.neutron = neutron;
+    }
 
     public void init() {
         init(neutron.getLocaleManager());

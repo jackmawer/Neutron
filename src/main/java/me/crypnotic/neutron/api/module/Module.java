@@ -24,8 +24,6 @@
 */
 package me.crypnotic.neutron.api.module;
 
-import lombok.Getter;
-import lombok.Setter;
 import me.crypnotic.neutron.NeutronPlugin;
 import me.crypnotic.neutron.api.Neutron;
 import me.crypnotic.neutron.api.Reloadable;
@@ -33,8 +31,6 @@ import ninja.leaping.configurate.ConfigurationNode;
 
 public abstract class Module implements Reloadable {
 
-    @Getter
-    @Setter
     private boolean enabled;
 
     public abstract String getName();
@@ -45,5 +41,13 @@ public abstract class Module implements Reloadable {
 
     public ConfigurationNode getRootNode() {
         return getNeutron().getModuleManager().getRoot().getNode(getName());
+    }
+
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

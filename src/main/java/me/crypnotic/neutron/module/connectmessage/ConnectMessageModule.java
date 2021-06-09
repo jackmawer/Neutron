@@ -24,14 +24,12 @@
 */
 package me.crypnotic.neutron.module.connectmessage;
 
-import lombok.Getter;
 import me.crypnotic.neutron.api.StateResult;
 import me.crypnotic.neutron.api.module.Module;
 import me.crypnotic.neutron.util.ConfigHelper;
 
 public class ConnectMessageModule extends Module {
 
-    @Getter
     private ConnectMessageConfig config;
 
     private ConnectMessageHandler handler;
@@ -44,7 +42,7 @@ public class ConnectMessageModule extends Module {
         }
 
         this.handler = new ConnectMessageHandler(this, config);
-        
+
         getNeutron().getProxy().getEventManager().register(getNeutron(), handler);
 
         return StateResult.success();
@@ -58,12 +56,16 @@ public class ConnectMessageModule extends Module {
     @Override
     public StateResult shutdown() {
         getNeutron().getProxy().getEventManager().unregisterListener(getNeutron(), handler);
-        
+
         return StateResult.success();
     }
 
     @Override
     public String getName() {
         return "connectmessages";
+    }
+
+    public ConnectMessageConfig getConfig() {
+        return this.config;
     }
 }

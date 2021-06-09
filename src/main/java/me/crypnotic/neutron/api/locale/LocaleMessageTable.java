@@ -24,25 +24,25 @@
 */
 package me.crypnotic.neutron.api.locale;
 
+import me.crypnotic.neutron.api.Neutron;
+import me.crypnotic.neutron.api.configuration.Configuration;
+import me.crypnotic.neutron.util.StringHelper;
+import net.kyori.adventure.text.Component;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import me.crypnotic.neutron.api.Neutron;
-import me.crypnotic.neutron.api.configuration.Configuration;
-import me.crypnotic.neutron.util.StringHelper;
-import net.kyori.adventure.text.Component;
-
-@RequiredArgsConstructor
 public class LocaleMessageTable {
 
-    @Getter
     private final Locale locale;
     private final Map<LocaleMessage, String> messages = new HashMap<>();
+
+    public LocaleMessageTable(Locale locale) {
+        this.locale = locale;
+    }
 
     public Component get(LocaleMessage key, Object... values) {
         String message = messages.get(key);
@@ -76,5 +76,9 @@ public class LocaleMessageTable {
         }
 
         return Optional.of(table);
+    }
+
+    public Locale getLocale() {
+        return this.locale;
     }
 }

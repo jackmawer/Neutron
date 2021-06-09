@@ -28,16 +28,18 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.DisconnectEvent;
 import com.velocitypowered.api.event.connection.PostLoginEvent;
 import com.velocitypowered.api.event.player.ServerConnectedEvent;
-
-import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.api.locale.LocaleMessage;
 import me.crypnotic.neutron.util.StringHelper;
 
-@RequiredArgsConstructor
 public class ConnectMessageHandler {
 
     private final ConnectMessageModule module;
     private final ConnectMessageConfig config;
+
+    public ConnectMessageHandler(me.crypnotic.neutron.module.connectmessage.ConnectMessageModule module, ConnectMessageConfig config) {
+        this.module = module;
+        this.config = config;
+    }
 
     @Subscribe
     public void onPlayerJoin(PostLoginEvent event) {

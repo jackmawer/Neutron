@@ -24,19 +24,12 @@
 */
 package me.crypnotic.neutron.manager.user;
 
-import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.ConsoleCommandSource;
 import com.velocitypowered.api.proxy.Player;
-
-import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.api.Reloadable;
 import me.crypnotic.neutron.api.StateResult;
 import me.crypnotic.neutron.api.configuration.Configuration;
@@ -45,8 +38,12 @@ import me.crypnotic.neutron.manager.user.holder.ConsoleUser;
 import me.crypnotic.neutron.manager.user.holder.PlayerUser;
 import me.crypnotic.neutron.util.ConfigHelper;
 
+import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+
 // TODO: Should the module be responsible solely for storing data?
-@RequiredArgsConstructor
 public class UserManager implements Reloadable {
 
     private final Configuration configuration;
@@ -54,6 +51,10 @@ public class UserManager implements Reloadable {
     private UserConfig config;
     private LoadingCache<UUID, PlayerUser> players;
     private ConsoleUser console;
+
+    public UserManager(Configuration configuration) {
+        this.configuration = configuration;
+    }
 
     @Override
     public StateResult init() {

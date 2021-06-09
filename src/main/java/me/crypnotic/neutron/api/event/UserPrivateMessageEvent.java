@@ -24,29 +24,19 @@
 */
 package me.crypnotic.neutron.api.event;
 
-import java.util.Optional;
-
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.event.ResultedEvent;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import me.crypnotic.neutron.api.user.User;
 import net.kyori.adventure.text.Component;
 
+import java.util.Optional;
+
 public final class UserPrivateMessageEvent implements ResultedEvent<UserPrivateMessageEvent.PrivateMessageResult> {
 
-    @Getter
     private final Optional<User<? extends CommandSource>> sender;
-    @Getter
     private final Optional<User<? extends CommandSource>> recipient;
-    @Getter
     private final Component message;
-    @Getter
     private final boolean reply;
-    @Getter
-    @Setter
     private PrivateMessageResult result;
 
     public UserPrivateMessageEvent(Optional<User<? extends CommandSource>> sender, Optional<User<? extends CommandSource>> recipient,
@@ -59,14 +49,39 @@ public final class UserPrivateMessageEvent implements ResultedEvent<UserPrivateM
         this.result = PrivateMessageResult.create();
     }
 
-    @AllArgsConstructor
+    public Optional<User<? extends CommandSource>> getSender() {
+        return this.sender;
+    }
+
+    public Optional<User<? extends CommandSource>> getRecipient() {
+        return this.recipient;
+    }
+
+    public Component getMessage() {
+        return this.message;
+    }
+
+    public boolean isReply() {
+        return this.reply;
+    }
+
+    public PrivateMessageResult getResult() {
+        return this.result;
+    }
+
+    public void setResult(PrivateMessageResult result) {
+        this.result = result;
+    }
+
     public static final class PrivateMessageResult implements ResultedEvent.Result {
 
-        @Getter
-        @Setter
         private Optional<Component> reason;
-        @Getter
         private boolean allowed;
+
+        public PrivateMessageResult(Optional<Component> reason, boolean allowed) {
+            this.reason = reason;
+            this.allowed = allowed;
+        }
 
         public void allow() {
             this.allowed = true;
@@ -79,6 +94,18 @@ public final class UserPrivateMessageEvent implements ResultedEvent<UserPrivateM
 
         public static PrivateMessageResult create() {
             return new PrivateMessageResult(Optional.empty(), true);
+        }
+
+        public Optional<Component> getReason() {
+            return this.reason;
+        }
+
+        public boolean isAllowed() {
+            return this.allowed;
+        }
+
+        public void setReason(Optional<Component> reason) {
+            this.reason = reason;
         }
     }
 }

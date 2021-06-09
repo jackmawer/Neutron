@@ -1,9 +1,9 @@
 package me.crypnotic.neutron.manager.user.holder;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.velocitypowered.api.command.CommandSource;
-import lombok.Data;
 import ninja.leaping.configurate.objectmapping.Setting;
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
@@ -14,7 +14,6 @@ import java.util.Set;
 import java.util.UUID;
 
 @ConfigSerializable
-@Data
 class PlayerData {
 
     // Persistent data - this is saved to disk.
@@ -27,6 +26,9 @@ class PlayerData {
 
     @Setting(comment = "Players that this player is ignoring")
     private List<UUID> ignoredPlayers = Collections.emptyList(); // Configurate includes a List TypeSerializer, so let's use that.
+
+    public PlayerData() {
+    }
 
     public Set<UUID> getIgnoredPlayers() {
         return Sets.newHashSet(ignoredPlayers);
@@ -46,5 +48,38 @@ class PlayerData {
 
     public void setReplyRecipient(CommandSource replyRecipient) {
         this.replyRecipient = new WeakReference<>(replyRecipient);
+    }
+
+    public int getConfigVersion() {
+        return this.configVersion;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setConfigVersion(int configVersion) {
+        this.configVersion = configVersion;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlayerData that = (PlayerData) o;
+        return configVersion == that.configVersion && Objects.equal(username, that.username) && Objects.equal(ignoredPlayers, that.ignoredPlayers) && Objects.equal(replyRecipient, that.replyRecipient);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(configVersion, username, ignoredPlayers, replyRecipient);
+    }
+
+    public String toString() {
+        return "PlayerData(configVersion=" + this.getConfigVersion() + ", username=" + this.getUsername() + ", ignoredPlayers=" + this.getIgnoredPlayers() + ", replyRecipient=" + this.getReplyRecipient() + ")";
     }
 }

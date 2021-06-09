@@ -24,22 +24,24 @@
 */
 package me.crypnotic.neutron.module.serverlist;
 
-import java.util.stream.Collectors;
-
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyPingEvent;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.ServerPing;
 import com.velocitypowered.api.proxy.server.ServerPing.Builder;
-
-import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.util.StringHelper;
 
-@RequiredArgsConstructor
+import java.util.stream.Collectors;
+
 public class ServerListHandler {
 
     private final ServerListModule module;
     private final ServerListConfig config;
+
+    public ServerListHandler(ServerListModule module, ServerListConfig config) {
+        this.module = module;
+        this.config = config;
+    }
 
     @Subscribe
     public void onServerListPing(ProxyPingEvent event) {

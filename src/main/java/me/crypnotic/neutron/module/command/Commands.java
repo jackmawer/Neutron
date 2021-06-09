@@ -26,12 +26,9 @@ package me.crypnotic.neutron.module.command;
 
 import java.util.function.Supplier;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.api.command.CommandWrapper;
 import me.crypnotic.neutron.module.command.options.*;
 
-@RequiredArgsConstructor
 public enum Commands {
     ALERT("alert", AlertCommand::new),
     FIND("find", FindCommand::new),
@@ -43,8 +40,19 @@ public enum Commands {
     REPLY("reply", ReplyCommand::new),
     SEND("send", SendCommand::new);
 
-    @Getter
     private final String key;
-    @Getter
     private final Supplier<CommandWrapper> supplier;
+
+    Commands(String key, Supplier<CommandWrapper> supplier) {
+        this.key = key;
+        this.supplier = supplier;
+    }
+
+    public String getKey() {
+        return this.key;
+    }
+
+    public Supplier<CommandWrapper> getSupplier() {
+        return this.supplier;
+    }
 }

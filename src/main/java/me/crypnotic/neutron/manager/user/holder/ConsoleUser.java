@@ -1,30 +1,26 @@
 package me.crypnotic.neutron.manager.user.holder;
 
+import com.velocitypowered.api.command.CommandSource;
+import com.velocitypowered.api.proxy.ConsoleCommandSource;
+import com.velocitypowered.api.proxy.Player;
+import me.crypnotic.neutron.api.Neutron;
+import me.crypnotic.neutron.api.user.User;
+
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-import com.velocitypowered.api.command.CommandSource;
-import com.velocitypowered.api.proxy.ConsoleCommandSource;
-
-import com.velocitypowered.api.proxy.Player;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import me.crypnotic.neutron.api.Neutron;
-import me.crypnotic.neutron.api.user.User;
-
 // TODO: Consider whether this should support *any* CommandSource that isn't a player (ie plugin-provided CommandSources)
-@RequiredArgsConstructor
 public class ConsoleUser implements User<ConsoleCommandSource> {
 
-    @Getter
     private final String name;
 
-    @Getter
-    @Setter
     private CommandSource replyRecipient;
+
+    public ConsoleUser(String name) {
+        this.name = name;
+    }
 
     @Override
     public Optional<ConsoleCommandSource> getBase() {
@@ -59,5 +55,17 @@ public class ConsoleUser implements User<ConsoleCommandSource> {
     @Override
     public Set<UUID> getIgnoredPlayers() {
         return Collections.emptySet();
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public CommandSource getReplyRecipient() {
+        return this.replyRecipient;
+    }
+
+    public void setReplyRecipient(CommandSource replyRecipient) {
+        this.replyRecipient = replyRecipient;
     }
 }

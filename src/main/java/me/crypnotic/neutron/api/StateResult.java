@@ -24,22 +24,21 @@
 */
 package me.crypnotic.neutron.api;
 
+import me.crypnotic.neutron.util.StringHelper;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import me.crypnotic.neutron.util.StringHelper;
-
-@RequiredArgsConstructor
 public class StateResult {
 
     private ExecutorService executor = Executors.newFixedThreadPool(2);
 
-    @Getter
     private final boolean success;
-    @Getter
     private boolean async;
+
+    public StateResult(boolean success) {
+        this.success = success;
+    }
 
     public void async() {
         this.async = true;
@@ -93,5 +92,13 @@ public class StateResult {
         }
 
         return StateResult.success();
+    }
+
+    public boolean isSuccess() {
+        return this.success;
+    }
+
+    public boolean isAsync() {
+        return this.async;
     }
 }

@@ -24,28 +24,24 @@
 */
 package me.crypnotic.neutron.module.serverlist;
 
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.proxy.server.ServerPing;
 import com.velocitypowered.api.proxy.server.ServerPing.Players;
 import com.velocitypowered.api.scheduler.ScheduledTask;
-
-import lombok.Getter;
 import me.crypnotic.neutron.api.StateResult;
 import me.crypnotic.neutron.api.module.Module;
 import me.crypnotic.neutron.module.serverlist.ServerListConfig.PlayerCount;
 import me.crypnotic.neutron.util.ConfigHelper;
 
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+
 public class ServerListModule extends Module {
 
-    @Getter
     private ServerListConfig config;
     private ScheduledTask pingTask;
     private ServerListHandler handler;
-    @Getter
     private int maxPlayerPing;
 
     @Override
@@ -56,7 +52,7 @@ public class ServerListModule extends Module {
         }
 
         this.handler = new ServerListHandler(this, config);
-        
+
         if (config.getPlayerCount().getAction() == PlayerCount.PlayerCountAction.PING) {
             this.pingTask = getNeutron().getProxy().getScheduler().buildTask(getNeutron(), new PingTask()).repeat(5, TimeUnit.MINUTES).schedule();
         }
@@ -85,6 +81,14 @@ public class ServerListModule extends Module {
     @Override
     public String getName() {
         return "serverlist";
+    }
+
+    public me.crypnotic.neutron.module.serverlist.ServerListConfig getConfig() {
+        return this.config;
+    }
+
+    public int getMaxPlayerPing() {
+        return this.maxPlayerPing;
     }
 
     public class PingTask implements Runnable {

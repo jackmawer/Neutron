@@ -1,31 +1,29 @@
 package me.crypnotic.neutron.api.configuration;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-
 import com.google.common.base.Preconditions;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import me.crypnotic.neutron.util.FileHelper;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
-@AllArgsConstructor
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+
 public class Configuration {
 
-    @Getter
     private final File folder;
-    @Getter
     private final File file;
-    @Getter
     private final ConfigurationLoader<?> loader;
     private ConfigurationNode node;
+
+    public Configuration(File folder, File file, ConfigurationLoader<?> loader, ConfigurationNode node) {
+        this.folder = folder;
+        this.file = file;
+        this.loader = loader;
+        this.node = node;
+    }
 
     public boolean reload() {
         ConfigurationNode fallback = node;
@@ -75,14 +73,21 @@ public class Configuration {
         return new Builder();
     }
 
+    public File getFolder() {
+        return this.folder;
+    }
+
+    public File getFile() {
+        return this.file;
+    }
+
+    public ConfigurationLoader<?> getLoader() {
+        return this.loader;
+    }
+
     public static class Builder {
 
-        @Setter
-        @Accessors(fluent = true, chain = true)
         private Path folder;
-
-        @Setter
-        @Accessors(fluent = true, chain = true)
         private String name;
 
         public Configuration build() {
@@ -95,13 +100,23 @@ public class Configuration {
                         .setDefaultOptions(ConfigurationOptions.defaults().setShouldCopyDefaults(true)).setFile(file).build();
 
                 ConfigurationNode node = loader.load();
-                
+
                 return new Configuration(folder.toFile(), file, loader, node);
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
 
             return null;
+        }
+
+        public Builder folder(Path folder) {
+            this.folder = folder;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
         }
     }
 }

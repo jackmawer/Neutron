@@ -24,10 +24,6 @@
 */
 package me.crypnotic.neutron.api.locale;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 public enum LocaleMessage {
 
     ALERT_MESSAGE("&7&l[&c&lALERT&7&l] &e{0}"),
@@ -85,10 +81,12 @@ public enum LocaleMessage {
     UNKNOWN_PLAYER("&cUnknown player: {0}"),
     UNKNOWN_SERVER("&cUnknown server: {0}");
 
-    @Getter
     private final String defaultMessage;
-    @Getter
     private final String name = toString().toLowerCase();
+
+    LocaleMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
+    }
 
     public static LocaleMessage match(String key) {
         try {
@@ -96,5 +94,13 @@ public enum LocaleMessage {
         } catch (IllegalArgumentException exception) {
             return null;
         }
+    }
+
+    public String getDefaultMessage() {
+        return this.defaultMessage;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

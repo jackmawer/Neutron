@@ -24,34 +24,33 @@
 */
 package me.crypnotic.neutron.module.announcement;
 
+import com.velocitypowered.api.scheduler.ScheduledTask;
+import me.crypnotic.neutron.NeutronPlugin;
+import me.crypnotic.neutron.util.StringHelper;
+import net.kyori.adventure.identity.Identity;
+import net.kyori.adventure.text.Component;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import com.velocitypowered.api.scheduler.ScheduledTask;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import me.crypnotic.neutron.NeutronPlugin;
-import me.crypnotic.neutron.util.StringHelper;
-import net.kyori.adventure.identity.Identity;
-import net.kyori.adventure.text.Component;
-
-@RequiredArgsConstructor
 public class Announcement {
 
     private final NeutronPlugin plugin;
-    @Getter
     private final String id;
-    @Getter
     private final AnnouncementData data;
 
-    @Getter
     private ScheduledTask task;
     private List<Component> localMessages;
     private Iterator<Component> iterator;
+
+    public Announcement(NeutronPlugin plugin, String id, me.crypnotic.neutron.module.announcement.AnnouncementData data) {
+        this.plugin = plugin;
+        this.id = id;
+        this.data = data;
+    }
 
     public void init() {
         if (localMessages == null) {
@@ -85,5 +84,17 @@ public class Announcement {
         }
 
         return announcement;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public me.crypnotic.neutron.module.announcement.AnnouncementData getData() {
+        return this.data;
+    }
+
+    public ScheduledTask getTask() {
+        return this.task;
     }
 }

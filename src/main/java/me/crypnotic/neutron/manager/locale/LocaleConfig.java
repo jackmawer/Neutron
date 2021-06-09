@@ -24,22 +24,30 @@
 */
 package me.crypnotic.neutron.manager.locale;
 
-import lombok.Getter;
 import ninja.leaping.configurate.objectmapping.Setting;
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
 @ConfigSerializable
 public class LocaleConfig {
 
-    @Getter
     @Setting("allow-translations")
     private boolean allowTranslations = true;
-    
-    @Getter
+
     @Setting("enabled")
     private boolean enabled = true;
-    
-    @Getter
+
     @Setting("fallback-locale")
     private String fallbackLocale = "en-US";
+
+    public boolean isAllowTranslations() {
+        return this.allowTranslations;
+    }
+
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    public String getFallbackLocale() {
+        return this.fallbackLocale;
+    }
 }

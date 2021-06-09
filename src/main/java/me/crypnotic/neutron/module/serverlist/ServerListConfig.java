@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import ninja.leaping.configurate.objectmapping.Setting;
@@ -37,23 +36,31 @@ import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 @ConfigSerializable
 public class ServerListConfig {
 
-    @Getter
     @Setting("motd")
     private Component motd = LegacyComponentSerializer.legacyAmpersand()
             .deserialize("&7This velocity proxy is proudly powered by &bNeutron");
 
-    @Getter
     @Setting("player-count")
     private PlayerCount playerCount = new PlayerCount();
 
-    @Getter
     @Setting("server-preview")
     private ServerPreview serverPreview = new ServerPreview();
+
+    public Component getMotd() {
+        return this.motd;
+    }
+
+    public PlayerCount getPlayerCount() {
+        return this.playerCount;
+    }
+
+    public ServerPreview getServerPreview() {
+        return this.serverPreview;
+    }
 
     @ConfigSerializable
     public static class PlayerCount {
 
-        @Getter
         @Setting(value = "action", comment = "      # The server list player count has three different actions:\r\n" + "        # \r\n"
                 + "        # CURRENT - player count matches the number of players online\r\n"
                 + "        # ONEMORE - player count shows the number of players online plus 1 \r\n"
@@ -62,9 +69,16 @@ public class ServerListConfig {
                 + "        # `player-count` is only used with the STATIC player count type")
         private PlayerCountAction action = PlayerCountAction.STATIC;
 
-        @Getter
         @Setting("player-count")
         private int maxPlayerCount = 500;
+
+        public PlayerCountAction getAction() {
+            return this.action;
+        }
+
+        public int getMaxPlayerCount() {
+            return this.maxPlayerCount;
+        }
 
         public enum PlayerCountAction {
             CURRENT,
@@ -78,16 +92,18 @@ public class ServerListConfig {
     @ConfigSerializable
     public static class ServerPreview {
 
-        @Getter
         @Setting(value = "action", comment = "      # The server list preview has three different actions:\r\n" + "        # \r\n"
                 + "        # MESSAGE - preview will show the messages defined under `messages`\r\n"
                 + "        # PLAYERS - preview matches the vanilla server preview of showing online players\r\n"
                 + "        # EMPTY - preview is empty\r\n" + "        #\r\n" + "        # `messages` is only used with the MESSAGE preview type")
         private ServerPreviewAction action = ServerPreviewAction.MESSAGE;
 
-        @Getter
         @Setting("messages")
         private List<String> messages = Collections.singletonList("&7Powered by a &bNeutron");
+
+        public List<String> getMessages() {
+            return messages;
+        }
 
         public enum ServerPreviewAction {
             EMPTY,

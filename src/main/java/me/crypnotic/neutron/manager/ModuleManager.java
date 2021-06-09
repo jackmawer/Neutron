@@ -24,17 +24,11 @@
 */
 package me.crypnotic.neutron.manager;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.common.reflect.TypeToken;
-
-import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.NeutronPlugin;
 import me.crypnotic.neutron.api.Reloadable;
 import me.crypnotic.neutron.api.StateResult;
 import me.crypnotic.neutron.api.configuration.Configuration;
-import me.crypnotic.neutron.api.module.Module;
 import me.crypnotic.neutron.api.serializer.ComponentSerializer;
 import me.crypnotic.neutron.module.announcement.AnnouncementModule;
 import me.crypnotic.neutron.module.command.CommandModule;
@@ -44,13 +38,20 @@ import net.kyori.adventure.text.Component;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.serialize.TypeSerializers;
 
-@RequiredArgsConstructor
+import java.util.HashMap;
+import java.util.Map;
+
 public class ModuleManager implements Reloadable {
 
     private final NeutronPlugin neutron;
     private final Configuration configuration;
 
     private Map<Class<? extends Module>, Module> modules = new HashMap<>();
+
+    public ModuleManager(NeutronPlugin neutron, Configuration configuration) {
+        this.neutron = neutron;
+        this.configuration = configuration;
+    }
 
     @Override
     public StateResult init() {

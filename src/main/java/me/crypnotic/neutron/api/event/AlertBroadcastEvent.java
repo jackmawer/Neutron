@@ -24,22 +24,33 @@
 */
 package me.crypnotic.neutron.api.event;
 
-import java.util.Optional;
-
 import com.velocitypowered.api.command.CommandSource;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.api.user.User;
 import net.kyori.adventure.text.Component;
 
-@RequiredArgsConstructor
+import java.util.Optional;
+
 public final class AlertBroadcastEvent {
 
-    @Getter
     private final Optional<User<? extends CommandSource>> author;
-    @Getter
     private final String unformattedText;
-    @Getter
     private final Component message;
+
+    public AlertBroadcastEvent(Optional<User<? extends CommandSource>> author, String unformattedText, Component message) {
+        this.author = author;
+        this.unformattedText = unformattedText;
+        this.message = message;
+    }
+
+    public Optional<User<? extends CommandSource>> getAuthor() {
+        return this.author;
+    }
+
+    public String getUnformattedText() {
+        return this.unformattedText;
+    }
+
+    public Component getMessage() {
+        return this.message;
+    }
 }

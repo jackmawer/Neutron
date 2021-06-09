@@ -24,12 +24,13 @@
 */
 package me.crypnotic.neutron.api.command;
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 public class CommandContext {
 
     private final String[] arguments;
+
+    public CommandContext(String[] arguments) {
+        this.arguments = arguments;
+    }
 
     public String get(int index) {
         if (index >= size()) {

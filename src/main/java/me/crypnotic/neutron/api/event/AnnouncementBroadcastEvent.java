@@ -25,21 +25,13 @@
 package me.crypnotic.neutron.api.event;
 
 import com.velocitypowered.api.event.ResultedEvent;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import me.crypnotic.neutron.module.announcement.Announcement;
 import net.kyori.adventure.text.Component;
 
 public final class AnnouncementBroadcastEvent implements ResultedEvent<AnnouncementBroadcastEvent.BroadcastResult> {
 
-    @Getter
     private final Announcement announcement;
-    @Getter
     private final Component message;
-    @Getter
-    @Setter
     private BroadcastResult result;
 
     public AnnouncementBroadcastEvent(Announcement announcement, Component message) {
@@ -48,18 +40,50 @@ public final class AnnouncementBroadcastEvent implements ResultedEvent<Announcem
         this.result = BroadcastResult.create(message);
     }
 
-    @AllArgsConstructor
+    public Announcement getAnnouncement() {
+        return this.announcement;
+    }
+
+    public Component getMessage() {
+        return this.message;
+    }
+
+    public BroadcastResult getResult() {
+        return this.result;
+    }
+
+    public void setResult(BroadcastResult result) {
+        this.result = result;
+    }
+
     public static final class BroadcastResult implements ResultedEvent.Result {
 
-        @Getter
-        @Setter
         private Component message;
-        @Getter
-        @Setter
         private boolean allowed;
+
+        public BroadcastResult(Component message, boolean allowed) {
+            this.message = message;
+            this.allowed = allowed;
+        }
 
         public static BroadcastResult create(Component message) {
             return new BroadcastResult(message, true);
+        }
+
+        public Component getMessage() {
+            return this.message;
+        }
+
+        public boolean isAllowed() {
+            return this.allowed;
+        }
+
+        public void setMessage(Component message) {
+            this.message = message;
+        }
+
+        public void setAllowed(boolean allowed) {
+            this.allowed = allowed;
         }
     }
 }

@@ -24,15 +24,9 @@
 */
 package me.crypnotic.neutron.api.command;
 
-import java.util.Optional;
-
 import com.velocitypowered.api.command.Command;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.SneakyThrows;
 import me.crypnotic.neutron.NeutronPlugin;
 import me.crypnotic.neutron.api.Neutron;
 import me.crypnotic.neutron.api.locale.LocaleMessage;
@@ -40,13 +34,11 @@ import me.crypnotic.neutron.api.user.User;
 import me.crypnotic.neutron.util.StringHelper;
 import net.kyori.adventure.text.Component;
 
+import java.util.Optional;
+
 public abstract class CommandWrapper implements Command {
 
-    @Getter
-    @Setter
     private boolean enabled;
-    @Getter
-    @Setter
     private String[] aliases;
 
     @Override
@@ -58,37 +50,30 @@ public abstract class CommandWrapper implements Command {
         }
     }
 
-    @SneakyThrows
     public void assertUsage(CommandSource source, boolean assertion) {
         assertCustom(source, assertion, LocaleMessage.INVALID_USAGE, getUsage());
     }
 
-    @SneakyThrows
     public void assertPlayer(CommandSource source, LocaleMessage message, Object... values) {
         assertCustom(source, source instanceof Player, message, values);
     }
 
-    @SneakyThrows
     public void assertNull(CommandSource source, Object value, LocaleMessage message, Object... values) {
         assertCustom(source, value == null, message, values);
     }
 
-    @SneakyThrows
     public void assertNotNull(CommandSource source, Object value, LocaleMessage message, Object... values) {
         assertCustom(source, value != null, message, values);
     }
 
-    @SneakyThrows
     public void assertNotIgnoring(CommandSource source, CommandSource ignoreSource, Player target, LocaleMessage message, Object... values) {
         getUser(ignoreSource).ifPresent(u -> assertCustom(source, !u.isIgnoringPlayer(target), message, values));
     }
 
-    @SneakyThrows
     public void assertPermission(CommandSource source, String permission) {
         assertCustom(source, source.hasPermission(permission), LocaleMessage.NO_PERMISSION);
     }
 
-    @SneakyThrows
     public void assertCustom(CommandSource source, boolean assertion, LocaleMessage message, Object... values) {
         if (!assertion) {
             message(source, message, values);
@@ -113,7 +98,23 @@ public abstract class CommandWrapper implements Command {
 
     public abstract String getUsage();
 
-    public class CommandExitException extends Exception {
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    public String[] getAliases() {
+        return this.aliases;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setAliases(String[] aliases) {
+        this.aliases = aliases;
+    }
+
+    public class CommandExitException extends RuntimeException {
         private static final long serialVersionUID = -1299193476106186693L;
     }
 

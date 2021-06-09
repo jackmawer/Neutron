@@ -1,6 +1,12 @@
 package me.crypnotic.neutron.manager.user.holder;
 
-import static me.crypnotic.neutron.api.Neutron.getNeutron;
+import com.google.common.collect.Sets;
+import com.velocitypowered.api.command.CommandSource;
+import com.velocitypowered.api.proxy.Player;
+import me.crypnotic.neutron.api.configuration.Configuration;
+import me.crypnotic.neutron.api.user.User;
+import me.crypnotic.neutron.util.ConfigHelper;
+import ninja.leaping.configurate.ConfigurationNode;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
@@ -8,17 +14,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-import com.google.common.collect.Sets;
-import com.velocitypowered.api.command.CommandSource;
-import com.velocitypowered.api.proxy.Player;
+import static me.crypnotic.neutron.api.Neutron.getNeutron;
 
-import lombok.RequiredArgsConstructor;
-import me.crypnotic.neutron.api.configuration.Configuration;
-import me.crypnotic.neutron.api.user.User;
-import me.crypnotic.neutron.util.ConfigHelper;
-import ninja.leaping.configurate.ConfigurationNode;
-
-@RequiredArgsConstructor
 public class PlayerUser implements User<Player> {
 
     private final UUID uuid;
@@ -26,6 +23,10 @@ public class PlayerUser implements User<Player> {
 
     private Configuration configuration;
     private PlayerData data;
+
+    public PlayerUser(UUID uuid) {
+        this.uuid = uuid;
+    }
 
     @Override
     public Optional<Player> getBase() {

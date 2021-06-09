@@ -24,49 +24,39 @@
 */
 package me.crypnotic.neutron;
 
-import java.nio.file.Path;
-
-import org.slf4j.Logger;
-
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
-
-import lombok.Getter;
 import me.crypnotic.neutron.api.Neutron;
 import me.crypnotic.neutron.api.configuration.Configuration;
 import me.crypnotic.neutron.event.StateHandler;
 import me.crypnotic.neutron.manager.ModuleManager;
 import me.crypnotic.neutron.manager.locale.LocaleManager;
 import me.crypnotic.neutron.manager.user.UserManager;
+import org.slf4j.Logger;
+
+import java.nio.file.Path;
 
 @Plugin(id = "@ID@", name = "@NAME@", version = "@VERSION@", description = "@DESCRIPTION@")
 public class NeutronPlugin {
 
     @Inject
-    @Getter
     private ProxyServer proxy;
     @Inject
-    @Getter
     private Logger logger;
     @Inject
     @DataDirectory
-    @Getter
     private Path dataFolderPath;
 
-    @Getter
     private Configuration configuration;
 
     private StateHandler stateHandler;
-    
-    @Getter
+
     private LocaleManager localeManager;
-    @Getter
     private ModuleManager moduleManager;
-    @Getter
     private UserManager userManager;
 
     public NeutronPlugin() {
@@ -76,15 +66,43 @@ public class NeutronPlugin {
     @Subscribe
     public void onProxyInitialize(ProxyInitializeEvent event) {
         this.configuration = Configuration.builder().folder(dataFolderPath).name("config.conf").build();
-        
+
         this.stateHandler = new StateHandler(this);
-        
+
         this.localeManager = new LocaleManager(this, configuration);
         this.userManager = new UserManager(configuration);
         this.moduleManager = new ModuleManager(this, configuration);
-        
+
         stateHandler.init();
-        
+
         proxy.getEventManager().register(this, new StateHandler(this));
+    }
+
+    public ProxyServer getProxy() {
+        return this.proxy;
+    }
+
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    public Path getDataFolderPath() {
+        return this.dataFolderPath;
+    }
+
+    public Configuration getConfiguration() {
+        return this.configuration;
+    }
+
+    public LocaleManager getLocaleManager() {
+        return this.localeManager;
+    }
+
+    public ModuleManager getModuleManager() {
+        return this.moduleManager;
+    }
+
+    public UserManager getUserManager() {
+        return this.userManager;
     }
 }
