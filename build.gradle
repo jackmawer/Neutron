@@ -4,7 +4,6 @@ plugins {
 	id 'net.kyori.indra' version '2.0.6'
 	id 'net.kyori.indra.publishing' version '2.0.6'
 	id 'net.kyori.blossom' version '1.3.0'
-	id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 group 'uk.co.n3fs.mc'
@@ -69,8 +68,4 @@ blossom {
 	replaceToken '@NAME@', name
 	replaceToken '@VERSION@', version
 	replaceToken '@DESCRIPTION@', description
-}
-
-tasks.build {
-	dependsOn(tasks.shadowJar)
 }

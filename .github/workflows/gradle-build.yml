@@ -24,7 +24,7 @@ jobs:
       - name: Archive artifact
         uses: actions/upload-artifact@v2.2.0
         with:
-          name: "Neutron-N3FS"
-          path: "build/libs/Neutron-N3FS-*.jar"
+          name: "Build artifacts"
+          path: "build/libs/neutron-n3fs-*.jar"
           if-no-files-found: error
 
