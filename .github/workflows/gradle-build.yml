@@ -20,7 +20,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew clean build shadowJar
+        run: ./gradlew clean build
       - name: Archive artifact
         uses: actions/upload-artifact@v2.2.0
         with:

@@ -21,5 +21,5 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_n3fsUsername: ${{ secrets.REPOSILITE_USERNAME }}
           ORG_GRADLE_PROJECT_n3fsPassword: ${{ secrets.REPOSILITE_PASSWORD }}
-        run: ./gradlew clean build shadowJar publish
+        run: ./gradlew clean build publish
 
