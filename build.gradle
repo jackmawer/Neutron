@@ -24,15 +24,6 @@ repositories {
 
 	maven {
 		url = 'https://repo.essentialsx.net/n3fs/'
-
-		credentials {
-			username = n3fsUsername
-			password = n3fsPassword
-		}
-
-		authentication {
-			basic(BasicAuthentication)
-		}
 	}
 }
 
