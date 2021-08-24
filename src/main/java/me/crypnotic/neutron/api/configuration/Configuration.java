@@ -1,11 +1,15 @@
 package me.crypnotic.neutron.api.configuration;
 
 import com.google.common.base.Preconditions;
+import com.google.common.reflect.TypeToken;
+import me.crypnotic.neutron.api.serializer.ComponentSerializer;
 import me.crypnotic.neutron.util.FileHelper;
+import net.kyori.adventure.text.Component;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
+import ninja.leaping.configurate.objectmapping.serialize.TypeSerializerCollection;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,19 +30,13 @@ public class Configuration {
     }
 
     public boolean reload() {
-        ConfigurationNode fallback = node;
         try {
-
             this.node = loader.load();
-
-            return true;
         } catch (IOException exception) {
             exception.printStackTrace();
-
-            node = fallback;
-
             return false;
         }
+        return true;
     }
 
     public boolean save() {
@@ -81,11 +79,16 @@ public class Configuration {
         return this.file;
     }
 
+    @SuppressWarnings("squid:S1452")
     public ConfigurationLoader<?> getLoader() {
         return this.loader;
     }
 
     public static class Builder {
+        @SuppressWarnings("UnstableApiUsage")
+        private static final TypeSerializerCollection TYPE_SERIALIZERS = TypeSerializerCollection.defaults()
+                .newChild()
+                .register(TypeToken.of(Component.class), new ComponentSerializer());
 
         private Path folder;
         private String name;
@@ -97,7 +100,9 @@ public class Configuration {
             try {
                 File file = FileHelper.getOrCreate(folder, name);
                 ConfigurationLoader<?> loader = HoconConfigurationLoader.builder()
-                        .setDefaultOptions(ConfigurationOptions.defaults().setShouldCopyDefaults(true)).setFile(file).build();
+                        .setDefaultOptions(ConfigurationOptions.defaults().withSerializers(TYPE_SERIALIZERS))
+                        .setFile(file)
+                        .build();
 
                 ConfigurationNode node = loader.load();
 
