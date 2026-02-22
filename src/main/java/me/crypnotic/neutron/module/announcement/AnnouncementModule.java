@@ -27,13 +27,11 @@ package me.crypnotic.neutron.module.announcement;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.velocitypowered.api.scheduler.ScheduledTask;
-
 import me.crypnotic.neutron.api.StateResult;
 import me.crypnotic.neutron.api.configuration.Configuration;
 import me.crypnotic.neutron.api.module.Module;
 import me.crypnotic.neutron.util.ConfigHelper;
-import ninja.leaping.configurate.ConfigurationNode;
+import org.spongepowered.configurate.ConfigurationNode;
 
 public class AnnouncementModule extends Module {
 
@@ -43,8 +41,8 @@ public class AnnouncementModule extends Module {
     public StateResult init() {
         this.configuration = Configuration.builder().folder(getNeutron().getDataFolderPath()).name("announcements.conf").build();
 
-        for (ConfigurationNode node : configuration.getNode().getChildrenMap().values()) {
-            String id = node.getKey().toString();
+        for (ConfigurationNode node : configuration.getNode().childrenMap().values()) {
+            String id = node.key().toString();
             if (announcements.containsKey(id)) {
                 getNeutron().getLogger().warn("An announcement list has already been defined with the id: " + id);
                 continue;
@@ -72,7 +70,9 @@ public class AnnouncementModule extends Module {
 
     @Override
     public StateResult shutdown() {
-        announcements.values().stream().filter(announcement -> announcement.getData().isEnabled()).map(Announcement::getTask).forEach(ScheduledTask::cancel);
+        announcements.values().stream()
+                .filter(announcement -> announcement.getData().isEnabled())
+                .forEach(announcement -> announcement.getTask().cancel());
 
         announcements.clear();
 

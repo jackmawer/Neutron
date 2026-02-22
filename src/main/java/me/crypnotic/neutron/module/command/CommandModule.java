@@ -27,9 +27,11 @@ package me.crypnotic.neutron.module.command;
 import me.crypnotic.neutron.api.StateResult;
 import me.crypnotic.neutron.api.command.CommandWrapper;
 import me.crypnotic.neutron.api.module.Module;
-import ninja.leaping.configurate.ConfigurationNode;
+import org.spongepowered.configurate.ConfigurationNode;
+import org.spongepowered.configurate.serialize.SerializationException;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -40,25 +42,30 @@ public class CommandModule extends Module {
 
     @Override
     public StateResult init() {
-        ConfigurationNode options = getRootNode().getNode("options");
-        if (options.isVirtual()) {
+        ConfigurationNode options = getRootNode().node("options");
+        if (options.virtual()) {
             getNeutron().getLogger().warn("No config entry found for command module options");
             return StateResult.fail();
         }
 
         for (Commands spec : Commands.values()) {
-            ConfigurationNode node = options.getNode(spec.getKey());
-            if (node.isVirtual()) {
+            ConfigurationNode node = options.node(spec.getKey());
+            if (node.virtual()) {
                 getNeutron().getLogger().warn("No config entry for command: {}", spec.getKey());
                 continue;
             }
 
             CommandWrapper wrapper = spec.getSupplier().get();
 
-            List<String> aliases = node.getNode("aliases").getList(Object::toString);
+            List<String> aliases;
+            try {
+                aliases = node.node("aliases").getList(String.class, Collections.emptyList());
+            } catch (SerializationException e) {
+                aliases = Collections.emptyList();
+            }
             String mainAlias = aliases.isEmpty() ? spec.getKey() : aliases.get(0);
 
-            wrapper.setEnabled(node.getNode("enabled").getBoolean());
+            wrapper.setEnabled(node.node("enabled").getBoolean());
             wrapper.setAliases(aliases.toArray(new String[0]));
 
             if (wrapper.isEnabled()) {

@@ -40,7 +40,7 @@ import org.slf4j.Logger;
 
 import java.nio.file.Path;
 
-@Plugin(id = "@ID@", name = "@NAME@", version = "@VERSION@", description = "@DESCRIPTION@")
+@Plugin(id = BuildConstants.ID, name = BuildConstants.NAME, version = BuildConstants.VERSION, description = BuildConstants.DESCRIPTION)
 public class NeutronPlugin {
 
     @Inject
