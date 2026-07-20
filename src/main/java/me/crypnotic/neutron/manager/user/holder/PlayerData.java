@@ -4,8 +4,8 @@ import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.velocitypowered.api.command.CommandSource;
-import ninja.leaping.configurate.objectmapping.Setting;
-import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
+import org.spongepowered.configurate.objectmapping.ConfigSerializable;
+import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
@@ -18,13 +18,13 @@ class PlayerData {
 
     // Persistent data - this is saved to disk.
 
-    @Setting(comment = "The version of this config. Don't change this!")
+    @Comment("The version of this config. Don't change this!")
     private int configVersion = 1;
 
-    @Setting(comment = "The player's last known username.")
+    @Comment("The player's last known username.")
     private String username;
 
-    @Setting(comment = "Players that this player is ignoring")
+    @Comment("Players that this player is ignoring")
     private List<UUID> ignoredPlayers = Collections.emptyList(); // Configurate includes a List TypeSerializer, so let's use that.
 
     public PlayerData() {

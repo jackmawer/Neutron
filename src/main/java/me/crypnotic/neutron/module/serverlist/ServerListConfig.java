@@ -26,8 +26,9 @@ package me.crypnotic.neutron.module.serverlist;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import ninja.leaping.configurate.objectmapping.Setting;
-import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
+import org.spongepowered.configurate.objectmapping.ConfigSerializable;
+import org.spongepowered.configurate.objectmapping.meta.Comment;
+import org.spongepowered.configurate.objectmapping.meta.Setting;
 
 import java.util.Collections;
 import java.util.List;
@@ -60,12 +61,13 @@ public class ServerListConfig {
     @ConfigSerializable
     public static class PlayerCount {
 
-        @Setting(value = "action", comment = "      # The server list player count has three different actions:\r\n" + "        # \r\n"
-                + "        # CURRENT - player count matches the number of players online\r\n"
-                + "        # ONEMORE - player count shows the number of players online plus 1 \r\n"
-                + "        # PING - player count shows the sum of all backend servers' max player counts. Cached every 5 minutes\r\n"
-                + "        # STATIC - player count will always be the number defined under `player-count`\r\n" + "        #\r\n"
-                + "        # `player-count` is only used with the STATIC player count type")
+        @Setting("action")
+        @Comment("The server list player count has three different actions:\n"
+                + "CURRENT - player count matches the number of players online\n"
+                + "ONEMORE - player count shows the number of players online plus 1\n"
+                + "PING - player count shows the sum of all backend servers' max player counts. Cached every 5 minutes\n"
+                + "STATIC - player count will always be the number defined under `player-count`\n"
+                + "`player-count` is only used with the STATIC player count type")
         private PlayerCountAction action = PlayerCountAction.STATIC;
 
         @Setting("player-count")
@@ -90,10 +92,12 @@ public class ServerListConfig {
     @ConfigSerializable
     public static class ServerPreview {
 
-        @Setting(value = "action", comment = "      # The server list preview has three different actions:\r\n" + "        # \r\n"
-                + "        # MESSAGE - preview will show the messages defined under `messages`\r\n"
-                + "        # PLAYERS - preview matches the vanilla server preview of showing online players\r\n"
-                + "        # EMPTY - preview is empty\r\n" + "        #\r\n" + "        # `messages` is only used with the MESSAGE preview type")
+        @Setting("action")
+        @Comment("The server list preview has three different actions:\n"
+                + "MESSAGE - preview will show the messages defined under `messages`\n"
+                + "PLAYERS - preview matches the vanilla server preview of showing online players\n"
+                + "EMPTY - preview is empty\n"
+                + "`messages` is only used with the MESSAGE preview type")
         private ServerPreviewAction action = ServerPreviewAction.MESSAGE;
 
         @Setting("messages")

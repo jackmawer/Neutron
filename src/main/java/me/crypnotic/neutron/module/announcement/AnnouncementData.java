@@ -25,8 +25,8 @@
 package me.crypnotic.neutron.module.announcement;
 
 import net.kyori.adventure.text.Component;
-import ninja.leaping.configurate.objectmapping.Setting;
-import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
+import org.spongepowered.configurate.objectmapping.ConfigSerializable;
+import org.spongepowered.configurate.objectmapping.meta.Setting;
 
 import java.util.Collections;
 import java.util.List;
