@@ -43,6 +43,9 @@ public class ConfigHelper {
 
     @SuppressWarnings("unchecked")
     public static <T, U extends ConfigurationNode> U setSerializable(U node, T config) {
+        if (node == null || config == null) {
+            return null;
+        }
         try {
             U copy = (U) node.copy();
 

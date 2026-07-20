@@ -47,6 +47,10 @@ public class PlayerUser implements User<Player> {
 
     @Override
     public void save() throws Exception {
+        if (configuration == null || data == null) {
+            return;
+        }
+
         ConfigurationNode serialized = ConfigHelper.setSerializable(configuration.getNode(), data);
 
         configuration.setNode(serialized, serialized != null);
