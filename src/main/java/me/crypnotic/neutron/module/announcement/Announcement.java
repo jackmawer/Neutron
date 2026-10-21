@@ -27,7 +27,6 @@ package me.crypnotic.neutron.module.announcement;
 import com.velocitypowered.api.scheduler.ScheduledTask;
 import me.crypnotic.neutron.NeutronPlugin;
 import me.crypnotic.neutron.util.StringHelper;
-import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.Component;
 
 import java.util.Collections;
@@ -70,7 +69,7 @@ public class Announcement {
             init();
         }
 
-        plugin.getProxy().sendMessage(Identity.nil(), iterator.next());
+        plugin.getProxy().sendMessage(iterator.next());
     }
 
     public static Announcement create(NeutronPlugin neutron, String id, AnnouncementData data) {
