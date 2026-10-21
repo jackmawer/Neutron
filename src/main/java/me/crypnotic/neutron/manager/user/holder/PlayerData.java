@@ -40,7 +40,7 @@ class PlayerData {
 
     // Non-persisted data - this is not saved when the user is unloaded.
 
-    private WeakReference<CommandSource> replyRecipient = null;
+    private transient WeakReference<CommandSource> replyRecipient = null;
 
     public CommandSource getReplyRecipient() {
         return replyRecipient != null ? replyRecipient.get() : null;
