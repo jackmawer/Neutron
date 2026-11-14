@@ -32,6 +32,9 @@ dependencies {
 
 	testImplementation 'com.velocitypowered:velocity-api:4.3.0'
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+	// Gradle 9 no longer puts the JUnit Platform launcher on the test runtime
+	// classpath implicitly.
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 test {
